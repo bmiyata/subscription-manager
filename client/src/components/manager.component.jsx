@@ -5,7 +5,21 @@ import ManagerItem from './manager-item';
 import { connect } from 'react-redux';
 
 const Manager = ({ subscriptions: { subscriptions } }) => {
-  const subscriptionList = subscriptions.map(subscription => (
+  const makeDate = date => {
+    const year = parseInt(date.slice(0, 4));
+    const month = parseInt(date.slice(5, 7));
+    const day = parseInt(date.slice(8, 10));
+
+    return new Date(year, month, day);
+  };
+
+  const sortedSubscriptions = subscriptions.sort((a, b) => {
+    a = makeDate(a.dueDate);
+    b = makeDate(b.dueDate);
+
+    return a.getTime() - b.getTime();
+  });
+  const subscriptionList = sortedSubscriptions.map(subscription => (
     <ManagerItem subscription={subscription} key={subscription._id} />
   ));
 

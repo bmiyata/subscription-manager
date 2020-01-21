@@ -59,3 +59,41 @@ export const updateSubscription = (id, formData) => async dispatch => {
     dispatch(setAlert(err.response.data.message, 'error'));
   }
 };
+
+export const paid = subscription => async dispatch => {
+  const config = {
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  };
+
+  // 2020-01-19
+  let year = parseInt(subscription.dueDate.slice(0, 4));
+  let month = parseInt(subscription.dueDate.slice(5, 7));
+  let day = parseInt(subscription.dueDate.slice(8, 10));
+
+  if (subscription.monthly === 'yearly' || subscription.monthly === 'Yearly') {
+    year = year + 1;
+  }
+
+  const newDate = new Date(year, month, day);
+
+  const updatedSubscription = {
+    ...subscription,
+    dueDate: newDate
+  };
+
+  try {
+    const res = await axios.patch(
+      `/api/v1/users/subscriptions/${subscription._id}`,
+      updatedSubscription,
+      config
+    );
+    dispatch({
+      type: SubscriptionActionTypes.UPDATE_SUBSCRIPTION,
+      payload: res.data.data.user.subscriptions
+    });
+  } catch (err) {
+    dispatch(setAlert(err.response.data.message, 'error'));
+  }
+};

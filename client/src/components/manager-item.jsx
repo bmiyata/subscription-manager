@@ -2,9 +2,12 @@ import React, { Fragment, useState } from 'react';
 import Moment from 'react-moment';
 import moment from 'moment';
 import { connect } from 'react-redux';
-import { deleteSubscription } from '../redux/subscriptions/subscriptions.actions';
+import {
+  deleteSubscription,
+  paid
+} from '../redux/subscriptions/subscriptions.actions';
 import ManagerInputs from './manager-new-item-inputs';
-const ManagerItem = ({ subscription, deleteSubscription }) => {
+const ManagerItem = ({ subscription, deleteSubscription, paid }) => {
   const [editMode, setEditMode] = useState({
     editing: false
   });
@@ -36,7 +39,9 @@ const ManagerItem = ({ subscription, deleteSubscription }) => {
         <Moment format="MM/DD/YYYY">{moment.utc(subscription.dueDate)}</Moment>
       </div>
       <div className="p-lg">
-        <button className="btn">Paid</button>
+        <button onClick={() => paid(subscription)} className="btn">
+          Paid
+        </button>
       </div>
       <div className="manager__edit-delete">
         <button
@@ -57,7 +62,8 @@ const ManagerItem = ({ subscription, deleteSubscription }) => {
 };
 
 const mapDispatchToProps = dispatch => ({
-  deleteSubscription: id => dispatch(deleteSubscription(id))
+  deleteSubscription: id => dispatch(deleteSubscription(id)),
+  paid: subscription => dispatch(paid(subscription))
 });
 
 export default connect(null, mapDispatchToProps)(ManagerItem);
