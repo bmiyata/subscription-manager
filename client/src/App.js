@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Switch, Route, Redirect } from 'react-router-dom';
+import { Route } from 'react-router-dom';
 import { loadUser } from './redux/auth/auth.actions';
 import { store } from './redux/store';
 

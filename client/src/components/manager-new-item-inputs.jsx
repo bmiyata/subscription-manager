@@ -13,10 +13,7 @@ const ManagerInputs = ({
   onClickHide,
   onClickHideEdit
 }) => {
-  {
-    /* This checks if a subscription was passed down. This is the case when edit button is clicked */
-  }
-
+  // This checks if a subscription was passed down. This is the case when edit button is clicked
   const initialFormData = subscription
     ? subscription
     : { nameOfService: '', amount: 0, monthly: 'Monthly', dueDate: '' };

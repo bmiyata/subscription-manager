@@ -41,7 +41,9 @@ app.use((req, res, next) => {
   next();
 });
 // Static Files
-app.use(express.static(`${__dirname}/public`));
+if (process.env.NODE_ENV === 'production') {
+  app.use(express.static(`${__dirname}/client/build`));
+}
 
 // ROUTES
 app.use('/api/v1/users', userRouter);
