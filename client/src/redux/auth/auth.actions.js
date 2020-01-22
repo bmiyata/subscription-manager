@@ -5,7 +5,7 @@ import SubscriptionActionTypes from '../subscriptions/subscriptions.types';
 
 export const loadUser = () => async dispatch => {
   try {
-    const res = await axios.get('http://localhost:3000/api/v1/users/me');
+    const res = await axios.get('/api/v1/users/me');
     dispatch({
       type: AuthActionTypes.USER_LOADED,
       payload: res.data
