@@ -42,7 +42,7 @@ app.use((req, res, next) => {
 });
 // Static Files
 if (process.env.NODE_ENV === 'production') {
-  app.use(express.static(`${__dirname}/client/build`));
+  app.use(express.static(`${__dirname}/client/public`));
 }
 
 // ROUTES
